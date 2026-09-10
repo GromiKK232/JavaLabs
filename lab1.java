@@ -35,8 +35,6 @@ public class lab1 {
             }
         }
         System.out.println("Сумма двух последних цифр: " + sumLastNums(x1_2));
-
-        // Задача 1.3: Символ в число
         char symbol = ' ';
         while (true) {
             System.out.print("\nЗадача 1.3 - Введите ОДИН символ-цифру (от 0 до 9): ");
@@ -50,7 +48,6 @@ public class lab1 {
         }
         System.out.println("Преобразованное число: " + charToNum(symbol));
 
-        // Задача 1.4: Проверка на положительность
         int x1_4 = 0;
         while (true) {
             System.out.print("\nЗадача 1.4 - Введите целое число для проверки на положительность: ");
