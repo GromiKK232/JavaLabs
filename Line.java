@@ -12,7 +12,6 @@ public class Line {
         this.end = new Point(x2, y2);
     }
 
-    // Метод возвращает расстояние между точками в виде целого числа
     public int getLength() {
         double dx = end.getX() - start.getX();
         double dy = end.getY() - start.getY();
