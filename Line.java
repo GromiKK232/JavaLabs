@@ -1,0 +1,32 @@
+public class Line {
+    private Point start;
+    private Point end;
+
+    public Line(Point start, Point end) {
+        this.start = start;
+        this.end = end;
+    }
+
+    public Line(double x1, double y1, double x2, double y2) {
+        this.start = new Point(x1, y1);
+        this.end = new Point(x2, y2);
+    }
+
+    // Метод возвращает расстояние между точками в виде целого числа
+    public int getLength() {
+        double dx = end.getX() - start.getX();
+        double dy = end.getY() - start.getY();
+        return (int) Math.sqrt(dx * dx + dy * dy);
+    }
+
+    public Point getStart() { return start; }
+    public void setStart(Point start) { this.start = start; }
+
+    public Point getEnd() { return end; }
+    public void setEnd(Point end) { this.end = end; }
+
+    @Override
+    public String toString() {
+        return "Линия от " + start + " до " + end;
+    }
+}
