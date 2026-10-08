@@ -8,13 +8,8 @@ public class Point3D extends Point {
         this.z = z;
     }
 
-    public double getZ() {
-        return z;
-    }
-
-    public void setZ(double z) {
-        this.z = z;
-    }
+    public double getZ() { return z; }
+    public void setZ(double z) { this.z = z; }
 
     @Override
     public String toString() {
