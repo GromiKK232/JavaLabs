@@ -1,28 +1,28 @@
 package ru.bochkarev.geometry;
+
 public class Square {
     private Point topLeft;
     private double side;
 
     public Square(Point topLeft, double side) {
-        this.topLeft = new Point(topLeft.getX(), topLeft.getY());
+        this.topLeft = topLeft.clone();
         this.side = side;
     }
 
     public Square(double x, double y, double side) {
-        this.topLeft = new Point(x, y);
+        this.topLeft = new ColoredPoint(x, y, "");
         this.side = side;
     }
 
     public Lomanaya getLomanaya() {
         Point[] corners = new Point[4];
-        
         double x = topLeft.getX();
         double y = topLeft.getY();
 
-        corners[0] = new Point(x, y);                  
-        corners[1] = new Point(x + side, y);           
-        corners[2] = new Point(x + side, y + side);    
-        corners[3] = new Point(x, y + side);           
+        corners[0] = new ColoredPoint(x, y, "");
+        corners[1] = new ColoredPoint(x + side, y, "");
+        corners[2] = new ColoredPoint(x + side, y + side, "");
+        corners[3] = new ColoredPoint(x, y + side, "");
 
         return new Lomanaya(corners);
     }
