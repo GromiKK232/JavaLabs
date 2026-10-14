@@ -131,29 +131,29 @@ public class Lab3 {
         System.out.println("Линия 2: " + line2);
         
         if (line1.equals(line2)) {
-            System.out.println("Результат сравнения: Линии ОДИНАКОВЫЕ");
+            System.out.println("Результат сравнения: Линии совпадают по координатам");
         } else {
-            System.out.println("Результат сравнения: Линии РАЗНЫЕ");
+            System.out.println("Результат сравнения: Линии не совпадаются по координатам");
         }
     }
 
     private static void runSquareTask() {
         Square square = new Square(5, 3, 23);
-        System.out.println("1. " + square);
+        System.out.println(square);
 
         Lomanaya lomanaya = square.getLomanaya();
-        System.out.println("2. " + lomanaya);
+        System.out.println(lomanaya);
 
-        System.out.printf("3. Длина ломаной: %.2f\n", lomanaya.getLength());
+        System.out.println("Длина ломаной: " + lomanaya.getLength());
 
         Point[] pts = lomanaya.getPoints();
         Point lastPoint = pts[pts.length - 1];
         lastPoint.setX(15);
         lastPoint.setY(25);
-        System.out.println("4. Последняя точка сдвинута");
+        System.out.println("Последняя точка сдвинута на координаты {15;25}");
 
-        System.out.println("   " + lomanaya);
-        System.out.printf("5. Новая длина ломаной: %.2f\n", lomanaya.getLength());
+        System.out.println(lomanaya);
+        System.out.println("Новая длина ломаной: " + lomanaya.getLength());
 
         double x = readDouble("Введите X квадрата: ");
         double y = readDouble("Введите Y квадрата: ");
@@ -162,7 +162,7 @@ public class Lab3 {
         Square userSquare = new Square(x, y, side);
         System.out.println(userSquare);
         Lomanaya userLomanaya = userSquare.getLomanaya();
-        System.out.printf("Длина ломаной вашего квадрата: %.2f\n", userLomanaya.getLength());
+        System.out.println ("Новая длина ломаной: " + lomanaya.getLength());
     }
 
     private static void runNeizmenyaemiMassiveTask() {
@@ -215,49 +215,83 @@ public class Lab3 {
         System.out.println("Обновленная точка: " + p3d);
     }
 
-    private static void runPointFeaturesTask() {
+     private static void runPointFeaturesTask() {
         System.out.println("Выберите размерность (1 - Одномерная, 2 - Двумерная, 3 - Трехмерная): ");
         int dim = readInt("Ввод: ");
 
         Point p;
         if (dim == 1) {
             int x = readInt("Введите X: ");
-            p = new Point(x, 0); 
+            p = new PointFeatures(x, 0); 
         } else if (dim == 3) {
             int x = readInt("Введите X: ");
             int y = readInt("Введите Y: ");
             int z = readInt("Введите Z: ");
-            p = new Point3D(x, y, z);
+            p = new Point3D(x, y, z); 
         } else {
             int x = readInt("Введите X: ");
             int y = readInt("Введите Y: ");
-            p = new Point(x, y);
+            p = new PointFeatures(x, y);
         }
 
-        String color = readString("Введите цвет: ");
-        String time = readString("Введите время появления: ");
+        String color = readString("Введите цвет (оставьте пустым, если нет): ");
+        String time = readString("Введите время появления (оставьте пустым, если нет): ");
 
-        PointFeatures pf = new PointFeatures(p, color, time);
+        PointFeatures pf = new PointFeatures(p.getX(), p.getY(), color, time);
         System.out.println("Результат: " + pf);
     }
 
-    private static void runSumTask() {
+        private static double readNumberOrFraction(String prompt) {
+            while (true) {
+                System.out.print(prompt);
+                String input = scanner.nextLine().trim().replace(',', '.');
+                
+                if (input.contains("/")) {
+                    try {
+                        String[] parts = input.split("/");
+                        if (parts.length == 2) {
+                            double num = Double.parseDouble(parts[0].trim());
+                            double den = Double.parseDouble(parts[1].trim());
+                            if (den == 0) {
+                                System.out.println("Ошибка. Деление на ноль.");
+                                continue;
+                            }
+                            return num / den;
+                        }
+                    } catch (NumberFormatException e) {
+                        System.out.println("Ошибка. Неверный формат дроби. Попробуйте снова.");
+                        continue;
+                    }
+                }
+                
+                try {
+                    return Double.parseDouble(input);
+                } catch (NumberFormatException e) {
+                    System.out.println("Ошибка. Введите число или дробь (например, 3.6 или 3/5).");
+                }
+            }
+        }
+
+        private static void runSumTask() {
         System.out.println("Выполнение сложений из задания:");
 
         double res1 = sum(2, 3.0 / 5.0, 2.3);
-        System.out.println("• 2 + 3/5 + 2.3 = " + res1);
+        System.out.println("2 + 3/5 + 2.3 = " + res1);
 
         double res2 = sum(3.6, 49.0 / 12.0, 3, 3.0 / 2.0);
-        System.out.println("• 3.6 + 49/12 + 3 + 3/2 = " + res2);
+        System.out.println("3.6 + 49/12 + 3 + 3/2 = " + res2);
 
         double res3 = sum(1.0 / 3.0, 1);
-        System.out.println("• 1/3 + 1 = " + res3);
+        System.out.println("1/3 + 1 = " + res3);
 
-        System.out.println("\nИнтерактивное сложение двух вещественных чисел:");
-        double a = readDouble("Введите первое число: ");
-        double b = readDouble("Введите второе число: ");
-        System.out.println("Сумма введённых чисел: " + sum(a, b));
+        // ИСПРАВЛЕННАЯ ИНТЕРАКТИВНАЯ ЧАСТЬ:
+        System.out.println("\nИнтерактивное сложение чисел и дробей:");
+        double a = readNumberOrFraction("Введите первое число или дробь: ");
+        double b = readNumberOrFraction("Введите второе число или дробь: ");
+        
+        System.out.println("Сумма введённых значений: " + sum(a, b));
     }
+
 
     private static void runInteractivePowerTask() {
         String xStr = readString("Введите число X: ");
@@ -280,11 +314,10 @@ public class Lab3 {
         Line original = new Line(x1, y1, x2, y2);
         System.out.println("Оригинальная линия: " + original);
         Line clone = original.clone();
-System.out.println("Клонированная линия: " + clone);
-System.out.println("\nМеняем координаты конца у КЛОНИРОВАННОЙ линии...");
-clone.setEndCoordinates(99, 99);
-System.out.println("Оригинальная линия после этого: " + original);
-System.out.println("Клонированная линия после этого: " + clone);
-}
+        System.out.println("Клонированная линия: " + clone);
+        clone.setEndCoordinates(67, 67);
+        System.out.println("Оригинальная линия после этого: " + original);
+        System.out.println("Клонированная линия после этого: " + clone);
+    }
 }
 
