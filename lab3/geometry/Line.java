@@ -5,13 +5,13 @@ public class Line implements Cloneable {
     private Point end;
 
     public Line(Point start, Point end) {
-        this.start = start.clone();
-        this.end = end.clone();
+        this.start = new PointFeatures(start.getX(), start.getY());
+        this.end = new PointFeatures(end.getX(), end.getY());
     }
 
     public Line(double x1, double y1, double x2, double y2) {
-        this.start = new ColoredPoint(x1, y1, "");
-        this.end = new ColoredPoint(x2, y2, "");
+        this.start = new PointFeatures(x1, y1);
+        this.end = new PointFeatures(x2, y2);
     }
 
     public int getLength() {
@@ -20,35 +20,53 @@ public class Line implements Cloneable {
         return (int) Math.sqrt(dx * dx + dy * dy);
     }
 
-    public Point getStart() { return this.start.clone(); }
-    public void setStart(Point start) { this.start = start.clone(); }
+    public Point getStart() { 
+        return new PointFeatures(this.start.getX(), this.start.getY()); 
+    }
+    
+    public void setStart(Point start) { 
+        this.start = new PointFeatures(start.getX(), start.getY()); 
+    }
 
-    public Point getEnd() { return this.end.clone(); }
-    public void setEnd(Point end) { this.end = end.clone(); }
+    public Point getEnd() { 
+        return new PointFeatures(this.end.getX(), this.end.getY()); 
+    }
+    
+    public void setEnd(Point end) { 
+        this.end = new PointFeatures(end.getX(), end.getY()); 
+    }
 
-    public double getStartX() { return start.getX(); }
-    public double getStartY() { return start.getY(); }
-    public double getEndX() { return end.getX(); }
-    public double getEndY() { return end.getY(); }
+    public double getStartX() { 
+        return start.getX(); 
+    }
+    public double getStartY() { 
+        return start.getY(); 
+    }
+    public double getEndX() { 
+        return end.getX(); 
+    }
+    public double getEndY() { 
+        return end.getY(); 
+    }
 
     public void setStartCoordinates(double x, double y) {
-        this.start.setX(x);
-        this.start.setY(y);
+        this.start = new PointFeatures(x, y);
     }
     
     public void setEndCoordinates(double x, double y) {
-        this.end.setX(x);
-        this.end.setY(y);
+        this.end = new PointFeatures(x, y);
     }
 
     @Override
     public boolean equals(Object obj) {
-        if (this == obj) return true;
-        if (obj == null || getClass() != obj.getClass()) return false;
+        if (this == obj) 
+            return true;
+        if (obj == null || getClass() != obj.getClass()) 
+            return false;
         Line other = (Line) obj;
-        boolean directMatch = this.start.equals(other.start) && this.end.equals(other.end);
-        boolean reverseMatch = this.start.equals(other.end) && this.end.equals(other.start);
-        return directMatch || reverseMatch;
+        boolean start_odinak = this.start.equals(other.start) && this.end.equals(other.end);
+        boolean start_konec = this.start.equals(other.end) && this.end.equals(other.start);
+        return start_odinak || start_konec;
     }
 
     @Override
