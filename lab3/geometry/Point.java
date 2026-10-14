@@ -9,11 +9,21 @@ public abstract class Point implements Cloneable {
         this.y = y;
     }
 
-    public double getX() { return x; }
-    public void setX(double x) { this.x = x; }
+    public double getX() { 
+        return x; 
+    }
+    
+    public void setX(double x) { 
+        this.x = x; 
+    }
 
-    public double getY() { return y; }
-    public void setY(double y) { this.y = y; }
+    public double getY() { 
+        return y; 
+    }
+    
+    public void setY(double y) { 
+        this.y = y; 
+    }
 
     @Override
     public boolean equals(Object obj) {
@@ -27,7 +37,9 @@ public abstract class Point implements Cloneable {
     public Point clone() {
         try {
             return (Point) super.clone();
-        } catch (CloneNotSupportedException e) {
+        } 
+        
+        catch (CloneNotSupportedException e) {
             throw new RuntimeException(e);
         }
     }
